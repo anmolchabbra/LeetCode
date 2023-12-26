@@ -3,12 +3,16 @@ class Solution {
     double MODULO = 1e9 + 7;
     
     public int numRollsToTarget(int n, int k, int target) {
-        Integer[][] dp = new Integer[n + 1][target + 1];
+        int[][] dp = new int[n + 1][target + 1];
+
+        for (int i = 0; i <= n; i++) {
+            Arrays.fill(dp[i], -1);
+        }
         helper(n, k, target, dp);
        return dp[n][target];
     }
     
-    private int helper(int n, int k, int target, Integer[][] dp) {
+    private int helper(int n, int k, int target, int[][] dp) {
         if (n < 0 || target < 0) {
             return 0;
         }
@@ -18,7 +22,7 @@ class Solution {
         if (n > 0 && target <= 0) {
             return 0;
         }
-         if ( dp[n][target] != null) {
+         if ( dp[n][target] != -1) {
             return dp[n][target];
         }
         if (target == 0 && n == 0) {
