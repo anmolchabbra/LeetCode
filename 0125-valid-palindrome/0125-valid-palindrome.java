@@ -1,16 +1,20 @@
 class Solution {
     public boolean isPalindrome(String s) {
-        String newString = "";
-        for (int i = 0; i < s.length(); i++) {
-            char atLoc = s.charAt(i);
-            if (Character.isLetter(atLoc) || Character.isDigit(atLoc)) {
-                newString += Character.toLowerCase(atLoc);
+        String preProcess = "";
+        for (Character c : s.toCharArray()) {
+            
+            char curr = Character.toLowerCase(c);
+            
+            if ((curr >= 'a' && curr <= 'z') || (curr >= '0' && curr <= '9')) {
+                preProcess += curr;
             }
         }
-        System.out.println(newString);
-        int l = 0, r = newString.length() - 1;
+        
+        System.out.print(preProcess);
+        
+        int l = 0, r = preProcess.length() - 1;
         while (l < r) {
-            if (newString.charAt(l) != newString.charAt(r)) {
+            if (preProcess.charAt(l) != preProcess.charAt(r)) {
                 return false;
             }
             l++;
