@@ -34,6 +34,7 @@ class Solution {
                         
                         
                         grid[row][col] = 2;
+                        countFresh--;
                         
                         q.add(new int[] {row, col});
                     }
@@ -43,14 +44,7 @@ class Solution {
             time++;
         }
         
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j <  grid[0].length; j++) {
-                if (grid[i][j] == 1) {
-                    return -1;
-                }
-            }
-        }
-        return time - 1;
+        return countFresh == 0 ? time - 1 : -1;
         
     }
 }
