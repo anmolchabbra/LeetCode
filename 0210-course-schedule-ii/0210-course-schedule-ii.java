@@ -33,7 +33,7 @@ class Solution {
         }
         
         if (visited[curr] == 2) {
-            System.out.println("Loop detected at " + curr);
+          //  System.out.println("Loop detected at " + curr);
             return true;
         }
         
@@ -49,7 +49,7 @@ class Solution {
             }
         }
         
-        System.out.println("Curr" + curr);
+        //System.out.println("Curr" + curr);
         ans[index] = curr;
         index++;
         visited[curr] = 1;
