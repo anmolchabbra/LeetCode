@@ -23,9 +23,9 @@ class Solution {
         
         Character c = digits.charAt(index);
         int charValue = Integer.valueOf(""+c);
-        System.out.println("Charvalie" + charValue);
+        //System.out.println("Charvalie" + charValue);
         String combination = map[charValue];
-        System.out.println("Comb" + combination);
+       // System.out.println("Comb" + combination);
         for (int j = 0; j < combination.length(); j++) {
             curr = curr + combination.charAt(j);
             helper(map, ans, index + 1, curr, digits);
