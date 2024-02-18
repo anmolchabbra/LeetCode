@@ -14,27 +14,28 @@
  * }
  */
 class Solution {
-    int count = 1;
+    int ways = 0;
     public int goodNodes(TreeNode root) {
         if (root == null) {
             return 0;
         }
-        helper(root.left, root);
-        helper(root.right, root);
-        return count;
+        countNodes(root, root.val);
+        return ways;
     }
     
-    public void helper(TreeNode root, TreeNode prev) {
-        if (root == null) {
+    public void countNodes(TreeNode node, int preMax) {
+        
+        if (node == null) {
             return;
         }
-        if (root.val >= prev.val) {
-            ++count;
-            helper(root.left, root);
-            helper(root.right, root);
-        } else {
-            helper(root.left, prev);
-            helper(root.right, prev);
+        
+        if (node.val >= preMax) {
+            System.out.println("Curre " + node.val);
+            ways++;
+            
         }
+        
+        countNodes(node.left, Math.max(node.val, preMax));
+        countNodes(node.right, Math.max(node.val, preMax));
     }
 }
