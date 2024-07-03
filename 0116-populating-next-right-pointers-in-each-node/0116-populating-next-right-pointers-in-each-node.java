@@ -45,7 +45,7 @@ class Solution {
                     node.next = q.peek();
                 }
                 
-                 
+
               
                 
                 if (node.left != null) {
