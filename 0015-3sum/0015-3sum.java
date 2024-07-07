@@ -6,31 +6,35 @@ class Solution {
             if (i > 0 && nums[i] == nums[i - 1]) {
                 continue;
             }
-            int l = i + 1;
-            int r = nums.length - 1;
-            int target = 0 - nums[i];
-            while (l < r) {
-                if (nums[l] + nums[r] == target) {
-                    List<Integer> sol = new ArrayList<>();
-                    sol.add(nums[i]);
-                    sol.add(nums[l]);
-                    sol.add(nums[r]);
-                    ans.add(sol);
-                    while (l < r && nums[l] == nums[l + 1]) {
-                        l++;
+            
+            int start = i + 1;
+            int end = nums.length - 1;
+            int target = -nums[i];
+            
+            while (start < end) {
+                int currSum = nums[start] + nums[end];
+                if (currSum == target) {
+                    List<Integer> toAdd = new ArrayList<>();
+                    toAdd.add(nums[i]);
+                    toAdd.add(nums[start]);
+                    toAdd.add(nums[end]);
+                    ans.add(toAdd);
+                    while (start < end && nums[end] == nums[end - 1]) {
+                        end--;
                     }
-                    while (l < r && nums[r] == nums[r - 1]) {
-                        r--;
+                     while (start < end && nums[start] == nums[start + 1]) {
+                        start++;
                     }
-                    l++;
-                    r--;
-                } else if (nums[l] + nums[r] < target) {
-                    l++;
+                    start++;
+                    end--;
+                } else if (currSum > target) {
+                    end--;
                 } else {
-                    r--;
+                    start++;  
                 }
             }
         }
+        
         return ans;
     }
 }
