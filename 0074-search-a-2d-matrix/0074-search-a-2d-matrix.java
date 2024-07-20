@@ -5,13 +5,13 @@ class Solution {
         int rows = matrix.length;
         int col = matrix[0].length;
         
-        int r = 0, c = col - 1;
+        int r = rows - 1, c = 0;
         
-        while (r < rows && c >= 0 ) {
+        while (r >= 0 && c < col ) {
             if (matrix[r][c] == target) return true;
             
-            if (target > matrix[r][c]) r++;
-            else c--;
+            if (target < matrix[r][c]) r--;
+            else c++;
         }
         return false;
     }
