@@ -1,84 +1,28 @@
-// class Solution {
-//     List<List<Integer>> ans = new ArrayList<>();
-//     public List<List<Integer>> permuteUnique(int[] nums) {
-//         Arrays.sort(nums);
-        
-//           solve(nums, new ArrayList<Integer>(), new boolean[nums.length]);
-        
-//         return ans;
-        
-//     }
-    
-    
-//         public void solve(int[]nums, List<Integer> sol, boolean[] visited) {
-        
-//         //base case;
-//         if (sol.size() >= nums.length) {
-            
-//             ans.add(new ArrayList<>(sol));
-//             System.out.println(ans);
-//            return;
-//         }
-        
-//         //choices
-//         for (int i = 0; i < nums.length; i++) {
-            
-//             if (visited[i] || i > 0 && nums[i] == nums[i - 1] && visited[i - 1]) {
-//                 continue;
-//             }
-          
-//                 visited[i] = true;
-//                 //add
-//                 sol.add(nums[i]);
-
-//                 //make call
-//                 solve(nums, sol, visited);
-
-//                 //backtrack
-                
-//                 visited[i] = false;
-//                 sol.remove(sol.size() - 1);
-                
-            
-            
-            
-//         }
-        
-//         return;
-        
-//     }
-// }
-
 class Solution {
     public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
         Arrays.sort(nums);
-        List<List<Integer>> res = new ArrayList<>();
-
-        backtrack(res, nums, new ArrayList<>(), new boolean[nums.length]);
-        return res;
+        boolean visited[] = new boolean[nums.length];
+        permute(nums, 0, new ArrayList<>(), ans, visited);
+        return ans;
     }
-
-    public void backtrack(List<List<Integer>> res,
-                          int[] nums,
-                          List<Integer> path,
-                          boolean[] visited) {
-        if (path.size() == nums.length) {
-            res.add(new ArrayList<>(path));
+    public void permute(int[] nums, int start, List<Integer> curr, List<List<Integer>> ans, boolean[] visited) {
+        //base case
+        if (start >= nums.length) {
+            ans.add(new ArrayList<>(curr));
             return;
         }
-
+        //
         for (int i = 0; i < nums.length; i++) {
-            if (visited[i] ||
-                    (i > 0 && nums[i - 1] == nums[i] && visited[i - 1]))
+            if (visited[i] || (i > 0 && nums[i] == nums[i - 1] && visited[i - 1])) {
                 continue;
-
+            }
             visited[i] = true;
-            path.add(nums[i]);
-
-            backtrack(res, nums, path, visited);
-
+            curr.add(nums[i]);
+            permute(nums, start + 1, curr, ans, visited);
+            //backtrack
+            curr.remove(curr.size() - 1);
             visited[i] = false;
-            path.remove(path.size() - 1);
         }
     }
 }
