@@ -14,21 +14,22 @@
  * }
  */
 class Solution {
+    //Imp: Balanceed at each node //don't check just for root left and right compare,
+    //that fails
     boolean isBalance = true;
     public boolean isBalanced(TreeNode root) {
-        height(root);
+        if (root == null) return true;
+        isHeight(root);
         return isBalance;
     }
-    public int height(TreeNode root) {
-        if (root == null) {
-            return 0;
-        }
-        int l = height(root.left);
-        int r = height(root.right);
-        //height(root.right, h1, h2);
-        if (Math.abs(r- l) > 1) {
+    
+    private int isHeight(TreeNode root) {
+        if (root == null) return 0;
+        int l = 1 + isHeight(root.left);
+        int r = 1 + isHeight(root.right);
+        if (Math.abs(r - l)> 1) {
             isBalance = false;
         }
-        return 1 + Math.max(l, r);
+        return Math.max(l, r);
     }
 }
