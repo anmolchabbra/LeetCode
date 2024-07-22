@@ -14,14 +14,27 @@ class Solution {
 //             else c++;
 //         }
 //         return false;
-             int r = matrix.length - 1, c = 0;
-        while (c <= matrix[0].length - 1  && r >= 0) {
+//              int r = matrix.length - 1, c = 0;
+//         while (c <= matrix[0].length - 1  && r >= 0) {
+            
+//             System.out.println("Row" + r + "  " + "Col" + c);
+//             if (matrix[r][c] == target) return true;
+            
+//             if (target >= matrix[r][c] && target <= matrix[r][matrix[0].length - 1]) {
+//                 c++;
+//             } else {
+//                 r--;
+//             }
+//         }
+//         return false;
+         int r = matrix.length - 1, c = matrix[0].length - 1;
+        while (c>= 0  && r >= 0) {
             
             System.out.println("Row" + r + "  " + "Col" + c);
             if (matrix[r][c] == target) return true;
             
-            if (target >= matrix[r][c] && target <= matrix[r][matrix[0].length - 1]) {
-                c++;
+            if (target <= matrix[r][c] && target >= matrix[r][0]) {
+                c--;
             } else {
                 r--;
             }
