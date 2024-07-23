@@ -4,19 +4,17 @@ class Solution {
         
         int minArrows = 0;
         int start  = points[0][0], end = points[0][1];
-        List<int[]> col = new ArrayList<>();
-        col.add(new int[]{start, end});
+        int size = 1;
         for (int i = 1; i < points.length; i++) {
-            int[] p = col.get(col.size() - 1);
-            if (points[i][0] <= p[1]) {
-                start = Math.min(p[0], points[i][0]);
-                end = Math.min(p[1], points[i][1]);
-                col.remove(col.size() - 1);
-                col.add(new int[] {start, end});
+            if (points[i][0] <= end) {
+                start = Math.min(start, points[i][0]);
+                end = Math.min(end, points[i][1]);
             } else {
-                col.add(points[i]);
+                start= points[i][0];
+                end = points[i][1];
+                size++;
             }
         }
-        return col.size();
+        return size;
     }
 }
