@@ -1,5 +1,5 @@
 class Solution {
-Set<Integer> cols = new HashSet<>();
+      Set<Integer> cols = new HashSet<>();
     Set<Integer> postDiag = new HashSet<>();
     Set<Integer> negDiag = new HashSet<>();
     
