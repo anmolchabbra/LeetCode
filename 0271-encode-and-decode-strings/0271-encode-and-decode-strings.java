@@ -28,8 +28,11 @@ public class Codec {
             // Parse the length of the string
             int len = Integer.parseInt(lenPart);
 
-            // Extract the string of length 'len'
-            String toAdd = str.substring(i, i + len);
+            // Manually concatenate characters to form the string
+            String toAdd = "";
+            for (int j = 0; j < len; j++) {
+                toAdd += str.charAt(i + j);
+            }
             System.out.print(toAdd);
 
             // Add the string to the decoded list
@@ -41,6 +44,7 @@ public class Codec {
         return decodedList;
     }
 }
+
 
 // Your Codec object will be instantiated and called as such:
 // Codec codec = new Codec();
