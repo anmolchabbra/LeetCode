@@ -7,7 +7,6 @@ public class Codec {
             sb.append('#');  // Append the separator
             sb.append(s);    // Append the actual string
         }
-        System.out.println(sb.toString());
         return sb.toString();
     }
 
@@ -23,7 +22,6 @@ public class Codec {
             }
             // Skip the '#'
             i++;
-            System.out.println("/Len: " + lenPart);
 
             // Parse the length of the string
             int len = Integer.parseInt(lenPart);
@@ -33,8 +31,6 @@ public class Codec {
             for (int j = 0; j < len; j++) {
                 toAdd += str.charAt(i + j);
             }
-            System.out.print(toAdd);
-
             // Add the string to the decoded list
             decodedList.add(toAdd);
 
