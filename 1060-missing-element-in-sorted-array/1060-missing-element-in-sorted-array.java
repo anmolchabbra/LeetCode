@@ -21,7 +21,7 @@ class Solution {
         if (missingNumAmt < k) {
             return nums[n - 1] + k - missingNumAmt;
         }
-        while (l < r) {
+        while (l <= r) {
             
             int mid = l + (r - l) / 2;
             
@@ -30,7 +30,7 @@ class Solution {
             if (range < k) {
                 l = mid + 1;
             } else {
-                r = mid;
+                r = mid - 1;
             }
         }
           return nums[0] + l + k - 1;
