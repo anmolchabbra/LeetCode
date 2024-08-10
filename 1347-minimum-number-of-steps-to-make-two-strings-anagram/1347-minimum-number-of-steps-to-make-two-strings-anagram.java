@@ -7,7 +7,10 @@ class Solution {
         }
         int steps = 0;
         for (int i = 0; i < 26; i++) {
-            steps += Math.max(0, first[i]);
+           // steps += Math.max(0, first[i]);
+           if (first[i] > 0) {
+               steps+= first[i];
+           }
         }
         return steps;
     }
