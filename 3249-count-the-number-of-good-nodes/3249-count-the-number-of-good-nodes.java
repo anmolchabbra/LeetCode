@@ -1,73 +1,76 @@
-import java.util.*;
-
 class Solution {
-    int goodNodes = 0;
 
-    public int countGoodNodes(int[][] edges) {
-        int n = edges.length + 1;
-        List<List<Integer>> adj = new ArrayList<>(n);
-        
-        // Initialize adjacency list
-        for (int i = 0; i < n; i++) {
-            adj.add(new ArrayList<>());
-        }
-        
-        // Build the adjacency list
-        for (int[] edge : edges) {
-            adj.get(edge[0]).add(edge[1]);
-            adj.get(edge[1]).add(edge[0]);
-        }
-        
-        int[] subtreeSize = new int[n];
-        Arrays.fill(subtreeSize, -1);
-        
-        // Start DFS from the root node (0)
-        dfs(adj, 0, -1, subtreeSize);
-        
-        return goodNodes;
-    }
-    
-    private int dfs(List<List<Integer>> adj, int node, int parent, int[] subtreeSize) {
-        // Initialize the subtree size for the current node
-        if (subtreeSize[node] != -1) {
-            return subtreeSize[node];
-        }
-        
-        // Base case for leaf nodes
-        if (adj.get(node).size() == (parent == -1 ? 0 : 1)) {
-            subtreeSize[node] = 1;
-            goodNodes++;
-            return 1;
-        }
-        
-        List<Integer> childSizes = new ArrayList<>();
-        int totalSize = 1; // Size including itself
-        
-        // Calculate subtree sizes for children
-        for (int child : adj.get(node)) {
-            if (child == parent) continue;
-            int childSize = dfs(adj, child, node, subtreeSize);
-            childSizes.add(childSize);
-            totalSize += childSize;
-        }
-        
-        // Check if all child subtree sizes are the same
-        boolean isGoodNode = true;
-        if (childSizes.size() > 1) {
-            int firstSize = childSizes.get(0);
-            for (int size : childSizes) {
-                if (size != firstSize) {
-                    isGoodNode = false;
-                    break;
-                }
+    int ans = 0;
+
+    public int dfs(ArrayList<ArrayList<Integer>> graph, int u){
+
+        ArrayList<Integer> adjNodes = graph.get(u);
+
+        int count = 1;
+        int lenSubtree = -1;
+
+        boolean flag = true;
+
+
+        for(Integer v : adjNodes){
+            int currLenSubTree = dfs(graph,v);
+            if(currLenSubTree!=lenSubtree && lenSubtree!=-1){
+                flag = false;
+            }else{
+                lenSubtree = currLenSubTree;
             }
+
+            
+            count += currLenSubTree;
         }
-        
-        if (isGoodNode) {
-            goodNodes++;
+
+        if(flag){
+            ans++;
         }
+        return count;
+    }
+    public int countGoodNodes(int[][] edges) {
+
+        int n = edges.length;
+        ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
+
+
+        int indegree[] = new int[n+1];
+
+        for(int i=0; i<=n; i++){
+            graph.add(new ArrayList<Integer>());
+        }
+
+        for(int i=0; i<n; i++){
+            int u = edges[i][0];
+            int v= edges[i][1];
+
+            int sm = Math.min(u,v);
+            int m = Math.max(u,v);
+            u=sm;
+            v=m;
+
+            if(indegree[v]==0){
+                indegree[v]++;
+                graph.get(u).add(v);
+            }else{
+                indegree[u]++;
+                graph.get(v).add(u);
+
+            }
         
-        subtreeSize[node] = totalSize;
-        return totalSize;
+
+        }
+
+        // for(ArrayList<Integer> r : graph){
+        //     for(Integer u : r){
+        //         System.out.print(u+" ");
+        //     }
+        //     System.out.println();
+        // }
+
+        dfs(graph,0);
+        return ans;
+        
     }
 }
